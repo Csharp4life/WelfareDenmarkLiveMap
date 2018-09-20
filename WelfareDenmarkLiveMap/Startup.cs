@@ -54,6 +54,11 @@ namespace WelfareDenmarkLiveMap
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "map",
+                    template: "map/",
+                    defaults: new { controller = "Map", action = "Map"});
+                    
             });
         }
     }
