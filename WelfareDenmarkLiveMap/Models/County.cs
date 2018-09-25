@@ -7,5 +7,7 @@ namespace WelfareDenmarkLiveMap.Models
 {
     public class County
     {
+        
+
     }
 }
