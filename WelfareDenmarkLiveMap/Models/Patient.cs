@@ -9,7 +9,7 @@ namespace WelfareDenmarkLiveMap.Models
     {
         public int ID { get; set; }
         public string name { get; set; }
-        public int CountyID { get; set; }
+        public int countyID { get; set; }
 
     }
 }
