@@ -8,8 +8,9 @@ namespace WelfareDenmarkLiveMap.Models
     public class Session
     {
         public int ID { get; set; }
-        public int completionRate { get; set; }
-        public DateTime time { get; set; }
-        public int patientID { get; set; }
+        public int CompletionRate { get; set; }
+        public DateTime Time { get; set; }
+        public Patient Patient { get; set; }
+        public ICollection<Exercise> Exercises { get; set; }
     }
 }

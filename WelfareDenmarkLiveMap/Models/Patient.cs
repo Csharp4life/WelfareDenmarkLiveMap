@@ -8,8 +8,9 @@ namespace WelfareDenmarkLiveMap.Models
     public class Patient
     {
         public int ID { get; set; }
-        public string name { get; set; }
-        public int countyID { get; set; }
+        public string Name { get; set; }
+        public County County { get; set; }
+        public ICollection<Session> Sessions { get; set; }
 
     }
 }
