@@ -9,6 +9,8 @@ namespace WelfareDenmarkLiveMap.Models
     public class DataContext : DbContext
     {
         public virtual DbSet<Patient> Patients { get; set; }
+        public virtual DbSet<Exercise> Exercises { get; set; }
+        public virtual DbSet<ExerciseType> ExerciseTypes { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
