@@ -7,6 +7,7 @@ using WelfareDenmarkLiveMap.Models;
 
 namespace WelfareDenmarkLiveMap.Controllers
 {
+    [Route("patient")]
     public class PatientController : Controller
     {
         private readonly DataContext _db;
@@ -15,20 +16,23 @@ namespace WelfareDenmarkLiveMap.Controllers
         {
             _db = db;
         }
+
+        [Route("")]
         public IActionResult Index()
         {
             return View();
         }
 
-        [HttpPost, Route("create")]
-        public IActionResult Create(Patient patient)
+        [Route("create")]
+        public IActionResult Create()
         {
             if (!ModelState.IsValid)
                 return View();
+            Patient patient = new Patient();
 
             patient.Name = "Mads";
-            patient.Sessions = new List<Session>();
-            patient.County = new County();
+            patient.Sessions = null;
+            patient.County = null;
 
             _db.Patients.Add(patient);
             _db.SaveChanges();
