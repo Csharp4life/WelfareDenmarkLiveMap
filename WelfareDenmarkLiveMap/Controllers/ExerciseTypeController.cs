@@ -26,7 +26,25 @@ namespace WelfareDenmarkLiveMap.Controllers
         [Route("create")]
         public IActionResult Create()
         {
-            return View();
+            if (!ModelState.IsValid)
+                return View();
+            var exercises = new List<ExerciseType>
+            {
+                new ExerciseType { Name = "Siddende knæekstension, venstre, sværdhedsgrad 2" },
+                new ExerciseType { Name = "Siddende knæekstension, højre, sværdhedsgrad 2" },
+                new ExerciseType { Name = "Siddende strakt arm foran" },
+                new ExerciseType { Name = "Siddende knæekstension, venstre, sværdhedsgrad 1" },
+                new ExerciseType { Name = "Ryg-rotation - siddende skovhugger mod højre fod" },
+                new ExerciseType { Name = "Ryg-rotation - siddende skovhugger mod venstre fod" },
+                new ExerciseType { Name = "Siddene ryg-rotation med arme stræk bagud, venstre" },
+                new ExerciseType { Name = "Siddene ryg-rotation med arme stræk bagud, højre" },
+            };
+            _db.AddRange(exercises);
+            _db.SaveChanges();
+
+            return RedirectToAction("map", new
+            {
+            });
         }
     }
 }
