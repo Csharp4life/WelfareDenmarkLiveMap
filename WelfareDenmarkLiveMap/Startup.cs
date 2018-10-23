@@ -36,7 +36,6 @@ namespace WelfareDenmarkLiveMap
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<DataContext>(options =>
             {
-                //var connectionString = "Server=tcp:mads9106.database.windows.net,1433;Initial Catalog=wfddb;Persist Security Info=False;User ID=mads9106;Password=Eal020795;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
                 var connectionString = Configuration.GetConnectionString("DataContext");
                 options.UseSqlServer(connectionString);
             });
