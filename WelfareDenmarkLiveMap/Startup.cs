@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WelfareDenmarkLiveMap.Models;
 
 namespace WelfareDenmarkLiveMap
 {
@@ -32,6 +34,10 @@ namespace WelfareDenmarkLiveMap
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContext<DataContext>(options => {
+                var connectionString = "Server=tcp:mads9106.database.windows.net,1433;Initial Catalog=wfddb;Persist Security Info=False;User ID=mads9106;Password=Eal020795;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+                options.UseSqlServer(connectionString);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,11 +60,6 @@ namespace WelfareDenmarkLiveMap
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-                routes.MapRoute(
-                    name: "map",
-                    template: "map/",
-                    defaults: new { controller = "Map", action = "Map"});
-                    
             });
         }
     }
