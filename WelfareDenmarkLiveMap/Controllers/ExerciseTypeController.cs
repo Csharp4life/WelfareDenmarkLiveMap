@@ -42,9 +42,7 @@ namespace WelfareDenmarkLiveMap.Controllers
             _db.AddRange(exercises);
             _db.SaveChanges();
 
-            return RedirectToAction("map", new
-            {
-            });
+            throw new Exception("Created ExerciseTypes!");
         }
     }
 }
