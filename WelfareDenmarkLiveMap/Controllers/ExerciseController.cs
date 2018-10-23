@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WelfareDenmarkLiveMap.Models;
 
 namespace WelfareDenmarkLiveMap.Controllers
@@ -23,26 +24,35 @@ namespace WelfareDenmarkLiveMap.Controllers
             return View();
         }
 
-        [Route("generate")]
-        public IActionResult Generate()
+        [Route("create")]
+        public IActionResult Create()
         {
-            if (!ModelState.IsValid) // If the model has errors, abort action and return to view.
+            if (!ModelState.IsValid)
                 return View();
 
             // #1 Load all exercise types from database and add to list.
             var exerciseTypes =
                 _db.ExerciseType.ToList();
-            // #2 Load all patients from database
-            
+            // #2 Load all sessions from database
+            // To be implemented
 
-            //var exercises = new List<Exercise>
-            //{
-            //    new Exercise { Name = "Siddende knæekstension, venstre, sværdhedsgrad 2" },
-            //};
-            //_db.AddRange(exercises);
-            //_db.SaveChanges();
+            // #3 Generate random exercise data
+            _db.Database.ExecuteSqlCommand("TRUNCATE TABLE [Exercise]");
 
-            throw new Exception(exerciseTypes);
+            int amountOfExerciseTypes = exerciseTypes.Count;
+            Random random = new Random();
+
+            var exercises = new List<Exercise>();
+            for (int i = 0; i < 100; i++)
+            {
+                var x = new Exercise { CompletionRate = random.Next(10, 100), Session = null, ExerciseType = exerciseTypes[random.Next(0, amountOfExerciseTypes)] };
+                exercises.Add(x);
+            }
+
+            _db.AddRange(exercises);
+            _db.SaveChanges();
+
+            throw new Exception("FUCK");
         }
     }
 }
