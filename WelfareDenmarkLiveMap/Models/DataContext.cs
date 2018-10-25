@@ -11,6 +11,7 @@ namespace WelfareDenmarkLiveMap.Models
         public virtual DbSet<Patient> Patients { get; set; }
         public virtual DbSet<Exercise> Exercise { get; set; }
         public virtual DbSet<ExerciseType> ExerciseType { get; set; }
+        public virtual DbSet<County> County { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
