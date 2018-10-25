@@ -101,7 +101,6 @@ namespace WelfareDenmarkLiveMap.Controllers
             {
                 Patient patient = new Patient();
                 patient.Name = $"{firstnames[r.Next(0, firstnames.Count)]} {lastnames[r.Next(0, lastnames.Count)]}";
-                patient.Sessions = null;
                 patient.County = null;
                 _db.Patients.Add(patient);
             }

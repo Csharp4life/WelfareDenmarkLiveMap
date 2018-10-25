@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WelfareDenmarkLiveMap.Models;
 
 namespace WelfareDenmarkLiveMap.Controllers
@@ -21,35 +22,38 @@ namespace WelfareDenmarkLiveMap.Controllers
         {
             return View();
         }
-        [Route("Create")]
+        [Route("create")]
         public IActionResult Create()
         {
+            
+            //_db.Database.ExecuteSqlCommand("ALTER TABLE [Exercise] DROP CONSTRAINT FK_Exercise_Session_SessionID");
+            _db.Database.ExecuteSqlCommand("TRUNCATE TABLE [Session]");
+            //_db.Database.ExecuteSqlCommand("ALTER TABLE [Exercise] ADD CONSTRAINT FK_Exercise_Session_SessionID FOREIGN KEY ([SessionID]) REFERENCES [dbo].[Session] ([ID])");
             var patients = _db.Patients.ToList();
-            var exercises = _db.Exercise.ToList();
             Random random = new Random();
-            var maxExercises = random.Next(6, 20);
             var Sessions = new List<Session>();
-            var completedExercises = new List<Exercise>();
-            DateTime dateTime = new DateTime();
+            
             
 
-            for (int i = 0; i < maxExercises; i++)
+
+
+            foreach (var Patient in patients)
             {
-                var randomExercise = random.Next(1, 20);            
-                completedExercises.Add(exercises[randomExercise]);
-            }
-            
-                foreach (var Patient in  patients) {
-                var session = new Session
+                for (int i = 0; i < random.Next(1, 5); i++)
                 {
-                    CompletionRate = random.Next(10, 100),
-                    Time = dateTime.Date,
-                    Patient = Patient,
-                    Exercises = completedExercises
+                    DateTime dateTime = new DateTime(random.Next(2016,2018), random.Next(1,12), random.Next(1,28));
+                    var session = new Session
+                    {
+                        CompletionRate = random.Next(10, 100),
+                        Time = dateTime,
+                        Patient = Patient,
 
-                };
-                Sessions.Add(session);
+                    };
+
+                    Sessions.Add(session);
+                }
             };
+            
             _db.AddRange(Sessions);
             _db.SaveChanges();
             return View();

@@ -11,6 +11,5 @@ namespace WelfareDenmarkLiveMap.Models
         public int CompletionRate { get; set; }
         public DateTime Time { get; set; }
         public Patient Patient { get; set; }
-        public ICollection<Exercise> Exercises { get; set; }
     }
 }
