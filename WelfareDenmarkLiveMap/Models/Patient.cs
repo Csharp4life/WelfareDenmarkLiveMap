@@ -10,7 +10,6 @@ namespace WelfareDenmarkLiveMap.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public County County { get; set; }
-        public ICollection<Session> Sessions { get; set; }
 
     }
 }
