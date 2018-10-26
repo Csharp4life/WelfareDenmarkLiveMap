@@ -12,43 +12,26 @@ namespace WelfareDenmarkLiveMap.Controllers
     public class MapController : Controller
     {
         private readonly DataContext _db;
+        public MapController(DataContext db)
+        {
+            _db = db;
+        }
         [Route("")]
         public IActionResult Index()
         {
             return View();
         }
+
         [HttpPost, Route("data")]
         public IActionResult Data(string countyID)
         {
-            return Content(countyID);
-            //var counties = _db.County.ToList();
-            //var patients = _db.Patients.ToList();
-            //var sessions = _db.Session.ToList();
-            //var hoverCounty = new County();
-            //var hoverPatient = new List<Patient>();
-            //var hoverSessions = new List<Session>();
-            //foreach (var county in counties)
-            //{
-            //    if(county.ID == countyID)
-            //    {
-            //        hoverCounty = county;
-            //    }
-            //}
-            //foreach (var patient in patients)
-            //{
-            //    if(patient.County == hoverCounty)
-            //    {
-            //        hoverPatient.Add(patient);
-            //            foreach (var session in sessions)
-            //            {
-            //               if (session.Patient == patient)
-            //                 {
-            //                    sessions.Add
-            //                 }
-            //            }
-            //    }
-            //}
-            //return View();
+            var county = _db.County.Find(countyID);
+            var patients = _db.Patients.Where(p => p.County == county).ToList();
+            foreach(var patient in patients)
+            {
+            var sessions = _db.Session.Where(s => s.Patient == patient).ToList(); ;
+            }
+            return View();
         }
 
     }
