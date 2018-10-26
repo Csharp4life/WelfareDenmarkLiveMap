@@ -122,7 +122,15 @@ jQuery(document).ready(function () {
         onRegionSelected: function (event, label, code) {
             //var mapObject = $('#kortKommuner').vectorMap('get', 'mapObject');
             //$("#debug").html("Valgte regioner: " + mapObject.getSelectedRegions());
-            alert();
+            var data = { countyNo: label };
+            $.ajax({
+                type: "POST",
+                url: "map/data",
+                data: data,
+                success: function (result) {
+                    alert(result);
+                }
+            });
         },
         onRegionTipShow: function (event, label, code) {
             //console.log("Show tip start.");
