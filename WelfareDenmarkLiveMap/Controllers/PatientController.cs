@@ -97,11 +97,12 @@ namespace WelfareDenmarkLiveMap.Controllers
             };
             if (!ModelState.IsValid)
                 return View();
-            for (int i = 0; i < 100; i++)
+            var counties = _db.County.ToList();
+            for (int i = 0; i < 1000; i++)
             {
                 Patient patient = new Patient();
                 patient.Name = $"{firstnames[r.Next(0, firstnames.Count)]} {lastnames[r.Next(0, lastnames.Count)]}";
-                patient.County = null;
+                patient.County = counties[r.Next(0, counties.Count - 1)];
                 _db.Patients.Add(patient);
             }
             _db.SaveChanges();
