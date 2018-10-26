@@ -27,7 +27,7 @@ namespace WelfareDenmarkLiveMap.Controllers
         {
             
             //_db.Database.ExecuteSqlCommand("ALTER TABLE [Exercise] DROP CONSTRAINT FK_Exercise_Session_SessionID");
-            _db.Database.ExecuteSqlCommand("TRUNCATE TABLE [Session]");
+            //_db.Database.ExecuteSqlCommand("TRUNCATE TABLE [Session]");
             //_db.Database.ExecuteSqlCommand("ALTER TABLE [Exercise] ADD CONSTRAINT FK_Exercise_Session_SessionID FOREIGN KEY ([SessionID]) REFERENCES [dbo].[Session] ([ID])");
             var patients = _db.Patients.ToList();
             Random random = new Random();

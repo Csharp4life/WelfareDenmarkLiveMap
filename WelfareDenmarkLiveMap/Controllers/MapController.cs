@@ -16,23 +16,21 @@ namespace WelfareDenmarkLiveMap.Controllers
         {
             _db = db;
         }
+
         [Route("")]
         public IActionResult Index()
         {
             return View();
         }
 
-        [HttpPost, Route("data")]
-        public IActionResult Data(string countyID)
+        [HttpPost, Route("Data")]
+        public JsonResult Data(string countyID)
         {
-            var county = _db.County.Find(countyID);
+            var county = _db.County.FirstOrDefault(c => c.CountyNo == countyID);
             var patients = _db.Patients.Where(p => p.County == county).ToList();
-            foreach(var patient in patients)
-            {
-            var sessions = _db.Session.Where(s => s.Patient == patient).ToList(); ;
-            }
-            return View();
-        }
+            var sessions = _db.Session.Where(s => patients.Contains(s.Patient));
 
+            return Json(sessions);
+        }
     }
 }

@@ -122,13 +122,17 @@ jQuery(document).ready(function () {
         onRegionSelected: function (event, label, code) {
             //var mapObject = $('#kortKommuner').vectorMap('get', 'mapObject');
             //$("#debug").html("Valgte regioner: " + mapObject.getSelectedRegions());
-            var data = { countyNo: label };
+
             $.ajax({
-                type: "POST",
-                url: "map/data",
-                data: data,
-                success: function (result) {
-                    alert(result);
+                url: '/map/data',
+                type: 'Post',
+                dataType: 'json',
+                data: { countyID: label },
+                success: function (html) {
+                    alert(html);
+                },
+                error: function (error) {
+                    alert(error);
                 }
             });
         },
