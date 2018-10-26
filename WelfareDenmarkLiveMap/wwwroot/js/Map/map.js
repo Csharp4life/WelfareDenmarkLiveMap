@@ -43,7 +43,7 @@ jQuery(document).ready(function () {
         backgroundColor: 'transparent',
         zoomOnScroll: true,
         zoomButtons: true,
-        regionsSelectable: false,
+        regionsSelectable: true, // Changed to true - André Gollubits
         regionLabelStyle: {
             initial: {
                 fill: '#444',
@@ -122,6 +122,7 @@ jQuery(document).ready(function () {
         onRegionSelected: function (event, label, code) {
             //var mapObject = $('#kortKommuner').vectorMap('get', 'mapObject');
             //$("#debug").html("Valgte regioner: " + mapObject.getSelectedRegions());
+            alert();
         },
         onRegionTipShow: function (event, label, code) {
             //console.log("Show tip start.");

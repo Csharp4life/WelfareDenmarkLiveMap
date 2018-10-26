@@ -34,8 +34,8 @@ namespace WelfareDenmarkLiveMap.Controllers
             var exerciseTypes =
                 _db.ExerciseType.ToList();
             // #2 Load all sessions from database
-            // To be implemented
-
+            var sessions =
+                _db.Session.ToList();
             // #3 Generate random exercise data
             _db.Database.ExecuteSqlCommand("TRUNCATE TABLE [Exercise]");
 
@@ -43,16 +43,24 @@ namespace WelfareDenmarkLiveMap.Controllers
             Random random = new Random();
 
             var exercises = new List<Exercise>();
-            for (int i = 0; i < 100; i++)
+            foreach (var session in sessions)
             {
-                var x = new Exercise { CompletionRate = random.Next(10, 100), Session = null, ExerciseType = exerciseTypes[random.Next(0, amountOfExerciseTypes)] };
-                exercises.Add(x);
+                for (int i = 0; i < random.Next(3,8); i++)
+                {
+                    var x = new Exercise
+                    {
+                        CompletionRate = random.Next(10, 100),
+                        Session = session,
+                        ExerciseType = exerciseTypes[random.Next(0, amountOfExerciseTypes)]
+                    };
+                    exercises.Add(x);
+                }
             }
 
             _db.AddRange(exercises);
             _db.SaveChanges();
 
-            throw new Exception("FUCK");
+            throw new Exception("Genered exercises!");
         }
     }
 }

@@ -37,7 +37,7 @@ namespace WelfareDenmarkLiveMap.Controllers
                 List<County> countiesList = new List<County>();
                 foreach (var x in counties)
                 {
-                    countiesList.Add(new County(){ Name = x.Key });
+                    countiesList.Add(new County(){ CountyNo = x.Key, Name = x.Value["name"].ToString() });
                 }
 
                 _db.AddRange(countiesList);
