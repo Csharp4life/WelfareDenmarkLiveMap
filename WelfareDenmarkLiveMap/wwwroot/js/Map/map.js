@@ -138,15 +138,21 @@ jQuery(document).ready(function () {
                 $("#county-" + label).remove();
                 return;
             }
+
             $.ajax({
                 url: '/map/data',
                 type: 'Post',
                 dataType: 'json',
                 data: { countyID: label },
-                success: function (html) {
-                    console.log(e);
-                    $(e).append("<div id='county-"+label+"' class='statistics'></div>");
+                success: function (data) {
+                    console.log(data);
+                    $(e).append("<div id='county-" + label + "' class='statistics'>" +
+                        "<span class='county-name'>" + data["Name"] + "</span>" +
+                        "<span class='number-of-patients'><i class='fab fa-accessible-icon'></i> " + data["Patient-count"] + "</span>" +
+                        "<span class='average-completetion-rate'><i class='fas fa-check-square'></i> " + data["Completion-avg"].toFixed(2) + "%</span>" +
+                        "</div > ");
                     $("#county-" + label).css({ "left": mouseX, "top": mouseY });
+                    //$(".statistics").draggable();
                 },
                 error: function (error) {
                     alert(error);
