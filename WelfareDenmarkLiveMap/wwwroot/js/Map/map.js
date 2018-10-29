@@ -38,6 +38,16 @@ jQuery(document).ready(function () {
      $('#map1').vectorMap('set', 'focus', 1, 0, 0);
      });*/
 
+    var mouseX = 0;
+    var mouseY = 0;
+
+    // Gets mouse coordinates on click
+    $('#flexkort_3FQK8').on('click', function (e) {
+        mouseX = e.pageX - this.offsetLeft;
+        mouseY = e.pageY - this.offsetTop;
+        //console.log(mouseX, mouseY);
+    });
+
     var mapConfigJSON = {
         map: 'denmark_county_merc_en',
         backgroundColor: 'transparent',
@@ -119,17 +129,24 @@ jQuery(document).ready(function () {
                 }
             }, 10)
         },
+
         onRegionSelected: function (event, label, code) {
             //var mapObject = $('#kortKommuner').vectorMap('get', 'mapObject');
             //$("#debug").html("Valgte regioner: " + mapObject.getSelectedRegions());
-
+            var e = this;
+            if ($("#county-" + label).length) {
+                $("#county-" + label).remove();
+                return;
+            }
             $.ajax({
                 url: '/map/data',
                 type: 'Post',
                 dataType: 'json',
                 data: { countyID: label },
                 success: function (html) {
-                    alert(html);
+                    console.log(e);
+                    $(e).append("<div id='county-"+label+"' class='statistics'></div>");
+                    $("#county-" + label).css({ "left": mouseX, "top": mouseY });
                 },
                 error: function (error) {
                     alert(error);
